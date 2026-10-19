@@ -71,11 +71,13 @@ export function Hero() {
             )}
           </div>
 
-          <dl className="rule mt-10 grid grid-cols-3 gap-4 pt-6">
+          {/* Figures align along one baseline even when the labels above
+              them wrap to different line counts. */}
+          <dl className="rule mt-10 grid grid-cols-3 items-stretch gap-4 pt-6">
             {hero.feiten.map((f) => (
-              <div key={f.label}>
+              <div key={f.label} className="flex flex-col">
                 <dt className="spec-label">{f.label}</dt>
-                <dd className="tabular mt-1 font-display text-2xl font-semibold text-paper sm:text-3xl">
+                <dd className="tabular mt-auto pt-1 font-display text-2xl font-semibold text-paper sm:text-3xl">
                   {f.waarde}
                 </dd>
               </div>

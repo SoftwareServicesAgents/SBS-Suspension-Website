@@ -775,8 +775,8 @@ function Confirmation({ lead, onReset }: { lead: Lead; onReset: () => void }) {
 
   return (
     <div>
-      <div className="flex items-center gap-3">
-        <span aria-hidden="true" className="h-2.5 w-2.5 bg-accent" />
+      <div className="flex items-start gap-3">
+        <span aria-hidden="true" className="mt-2.5 h-2.5 w-2.5 shrink-0 bg-accent" />
         <h3 className="font-display text-2xl font-semibold tracking-wide text-paper sm:text-3xl">
           {t.stapKlaar.titel}
         </h3>

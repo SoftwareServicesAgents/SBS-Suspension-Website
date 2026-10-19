@@ -4,13 +4,16 @@ import { motion, useAnimationControls, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
+// Horizontal padding lives in the variants: the quiet variant reads as a
+// text action, so it must sit flush with the block above it rather than
+// appearing indented when it wraps onto its own line.
 const BASE =
-  "inline-flex items-center justify-center gap-2 rounded-xs px-5 py-3.5 font-display text-base font-semibold tracking-wide uppercase transition-colors select-none";
+  "inline-flex items-center justify-center gap-2 rounded-xs py-3.5 font-display text-base font-semibold tracking-wide uppercase transition-colors select-none";
 
 const VARIANTS = {
-  primary: "bg-accent text-accent-ink hover:bg-paper",
-  secondary: "border border-line text-paper hover:border-accent hover:text-accent",
-  quiet: "text-muted-strong hover:text-paper",
+  primary: "px-5 bg-accent text-accent-ink hover:bg-paper",
+  secondary: "px-5 border border-line text-paper hover:border-accent hover:text-accent",
+  quiet: "px-1 text-muted-strong underline decoration-line underline-offset-4 hover:text-paper hover:decoration-accent",
 } as const;
 
 type Variant = keyof typeof VARIANTS;
@@ -110,7 +113,7 @@ export function CompressCta({
     </>
   );
 
-  const classes = `${BASE} relative origin-bottom overflow-hidden bg-accent text-accent-ink hover:bg-paper disabled:cursor-not-allowed disabled:bg-line disabled:text-muted ${className}`;
+  const classes = `${BASE} relative origin-bottom overflow-hidden px-5 bg-accent text-accent-ink hover:bg-paper disabled:cursor-not-allowed disabled:bg-line disabled:text-muted ${className}`;
 
   const handlers = {
     onPointerDown: compress,

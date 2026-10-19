@@ -54,13 +54,17 @@ export function HeadlineReveal({
     return { word: word.replace(/\|/g, ""), accent };
   });
 
+  // Timings are deliberately tight: the last word has fully arrived by
+  // ~400ms, so no content is held back behind the animation.
   const container: Variants = {
     hidden: {},
-    show: { transition: { staggerChildren: 0.035 } },
+    show: { transition: { staggerChildren: 0.018 } },
   };
   const item: Variants = {
-    hidden: { opacity: 0, y: "0.35em" },
-    show: { opacity: 1, y: 0, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
+    // Travels further than the clip box is tall, so each word starts
+    // completely hidden below its own mask.
+    hidden: { opacity: 0, y: "1.3em" },
+    show: { opacity: 1, y: 0, transition: { duration: 0.26, ease: [0.22, 1, 0.36, 1] } },
   };
 
   if (reduce) {
@@ -80,7 +84,12 @@ export function HeadlineReveal({
     <motion.h1 className={className} variants={container} initial="hidden" animate="show">
       {words.map((w, i) => (
         // The clipping wrapper gives the words a mechanical "rise" edge.
-        <span key={i} className="inline-block overflow-hidden align-bottom">
+        // The padding/negative-margin pair extends the mask below the
+        // baseline so descenders (g, j, y) are not sheared off.
+        <span
+          key={i}
+          className="inline-block overflow-hidden pb-[0.26em] align-bottom -mb-[0.26em]"
+        >
           <motion.span
             variants={item}
             className={`inline-block ${w.accent ? accentClassName : ""}`}
