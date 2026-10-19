@@ -51,28 +51,39 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true, mode: "demo", score });
   }
 
-  try {
-    await Promise.all([
-      sendEmail(apiKey, {
-        from,
-        to: [to],
-        reply_to: lead.email,
-        subject: `[${score.toUpperCase()}] Vering-check · ${lead.naam} · ${bikeLine(lead)}`,
-        html: ownerEmail(lead, score, punten),
-      }),
-      sendEmail(apiKey, {
-        from,
-        to: [lead.email],
-        reply_to: contact.email,
-        subject: `Je vering-advies van ${bedrijf.naam}`,
-        html: riderEmail(lead),
-      }),
-    ]);
-    return NextResponse.json({ ok: true, mode: "email", score });
-  } catch {
-    // The rider already has a confirmation screen; never surface this.
-    return NextResponse.json({ ok: true, mode: "demo", score });
+  // The owner notification is the one that must not be lost; the rider
+  // already has an on-screen confirmation either way. So they are sent
+  // independently and the owner mail decides the reported mode.
+  const [owner, rider] = await Promise.allSettled([
+    sendEmail(apiKey, {
+      from,
+      to: [to],
+      reply_to: lead.email,
+      subject: `[${score.toUpperCase()}] Vering-check · ${lead.naam} · ${bikeLine(lead)}`,
+      html: ownerEmail(lead, score, punten),
+    }),
+    sendEmail(apiKey, {
+      from,
+      to: [lead.email],
+      reply_to: contact.email,
+      subject: `Je vering-advies van ${bedrijf.naam}`,
+      html: riderEmail(lead),
+    }),
+  ]);
+
+  if (owner.status === "rejected") {
+    console.error("[lead] owner notification failed:", owner.reason);
   }
+  if (rider.status === "rejected") {
+    console.error("[lead] rider confirmation failed:", rider.reason);
+  }
+
+  return NextResponse.json({
+    ok: true,
+    mode: owner.status === "fulfilled" ? "email" : "demo",
+    score,
+    sent: { owner: owner.status === "fulfilled", rider: rider.status === "fulfilled" },
+  });
 }
 
 type ResendPayload = {
@@ -83,8 +94,12 @@ type ResendPayload = {
   html: string;
 };
 
+// Overridable only so the send path can be exercised against a local mock
+// without a real account. Leave it unset in production.
+const RESEND_URL = process.env.RESEND_API_URL ?? "https://api.resend.com/emails";
+
 async function sendEmail(apiKey: string, payload: ResendPayload) {
-  const res = await fetch("https://api.resend.com/emails", {
+  const res = await fetch(RESEND_URL, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${apiKey}`,
@@ -93,7 +108,10 @@ async function sendEmail(apiKey: string, payload: ResendPayload) {
     body: JSON.stringify(payload),
     signal: AbortSignal.timeout(8000),
   });
-  if (!res.ok) throw new Error(`resend_${res.status}`);
+  if (!res.ok) {
+    const detail = await res.text().catch(() => "");
+    throw new Error(`resend_${res.status} ${detail.slice(0, 300)}`);
+  }
 }
 
 // ---------------------------------------------------------------------

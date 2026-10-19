@@ -36,7 +36,10 @@ export const leadSchema = z.object({
   wanneer: z.enum(["asap", "winter", "seizoen", "onbekend"]),
 
   // Honeypot: real people never see this field, bots fill everything.
-  website: z.string().max(0).optional().default(""),
+  // Deliberately permissive so a filled value passes validation and is
+  // dropped silently by the API route instead of bouncing with a 400 —
+  // a bot that gets a validation error learns which field gave it away.
+  website: z.string().max(200).optional().default(""),
 });
 
 export type LeadInput = z.infer<typeof leadSchema>;
