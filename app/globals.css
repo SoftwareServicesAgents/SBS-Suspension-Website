@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   SBS Suspension — "workshop precision" design tokens.
+   Accent is sampled from the SBS logo (#201060 deep indigo). On the
+   near-black surface that value is far too dark to read, so the same
+   hue is lifted to #8470FF for on-dark use (5.38:1 against the ink).
+   ------------------------------------------------------------------ */
+@theme {
+  --color-ink: #0b0b0c;
+  --color-ink-raised: #121214;
+  --color-ink-sunken: #08080a;
+  --color-paper: #f4f4f2;
+  --color-paper-dim: #e6e6e2;
+
+  --color-muted: #9a9aa2;
+  --color-muted-strong: #c3c3c9;
+  --color-line: #26262b;
+  --color-line-soft: #1b1b1f;
+
+  --color-accent: #8470ff;
+  --color-accent-dim: #6c5ce7;
+  --color-accent-deep: #201060;
+  --color-accent-ink: #0b0b0c;
+
+  --color-hot: #ff6b4a;
+  --color-warm: #f2b23c;
+  --color-cold: #7f8691;
+
+  --font-display: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+
+  --ease-mech: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Offset anchor scrolling for the sticky header. */
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Spec figures line up in columns — essential for the spec sheet look. */
+  .tabular,
+  table,
+  input[type="number"],
+  input[type="range"] + output {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+
+  /* One consistent, always-visible focus ring across the whole site. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+}
+
+@layer components {
+  /* Spec-sheet label: "VOORVORK / 48 MM / LUCHTVORK" */
+  .spec-label {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  /* Thin rule used to separate technical blocks. */
+  .rule {
+    border-top: 1px solid var(--color-line);
+  }
+
+  /* Faint engineering grid used behind the hero and the tool. */
+  .grid-motif {
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--color-line) 70%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--color-line) 70%, transparent) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Reduced motion: strip every transform/opacity animation. Content is
+   never gated behind an animation, so this only removes decoration.
+   ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

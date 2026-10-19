@@ -3,7 +3,16 @@
     "allow": [
       "WebFetch(domain:www.sbs-suspension.nl)",
       "Bash(npm -v)",
-      "Bash(git --version)"
+      "Bash(git --version)",
+      "Bash(npm init *)",
+      "Bash(npm i *)",
+      "Bash(node -p \"const p=require\\('./package.json'\\); JSON.stringify\\({next:p.dependencies.next,react:p.dependencies.react,fm:p.dependencies['framer-motion'],zod:p.dependencies.zod,tw:p.devDependencies.tailwindcss},null,1\\)\")",
+      "Bash(node -e ' *)",
+      "Bash(npm run *)",
+      "Bash(node -p \"JSON.stringify\\(require\\('./node_modules/eslint-config-next/package.json'\\).exports||require\\('./node_modules/eslint-config-next/package.json'\\).main\\)\")",
+      "Bash(npx tsc *)",
+      "Bash(git add *)",
+      "Bash(git commit -q -m 'feat: vering-check works end-to-end in demo mode *)"
     ]
   }
 }
