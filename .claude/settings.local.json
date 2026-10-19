@@ -23,7 +23,8 @@
       "Bash(curl -s http://localhost:3000/)",
       "Bash(RESEND_API_KEY=re_mock_testkey_123 LEAD_TO_EMAIL=davy@example.nl LEAD_FROM_EMAIL=\"SBS Suspension <info@example.nl>\" RESEND_API_URL=http://localhost:4555/emails npm start)",
       "Bash(curl -s -o /dev/null -w \"server %{http_code}\\\\n\" http://localhost:3000/)",
-      "Bash(RESEND_API_KEY=re_mock_testkey_123 LEAD_TO_EMAIL=davy@example.nl node .scrape/verify/mail-test.mjs)"
+      "Bash(RESEND_API_KEY=re_mock_testkey_123 LEAD_TO_EMAIL=davy@example.nl node .scrape/verify/mail-test.mjs)",
+      "Bash(git commit -q -m 'docs: README and VERIFY.md *)"
     ]
   }
 }
