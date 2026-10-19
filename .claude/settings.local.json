@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.sbs-suspension.nl)",
+      "Bash(npm -v)",
+      "Bash(git --version)"
+    ]
+  }
+}
