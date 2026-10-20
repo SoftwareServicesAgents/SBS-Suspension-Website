@@ -3,6 +3,7 @@
 import { motion, useAnimationControls, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { weergave } from "@/content/site";
 
 // Horizontal padding lives in the variants: the quiet variant reads as a
 // text action, so it must sit flush with the block above it rather than
@@ -144,7 +145,11 @@ export function CompressCta({
   );
 }
 
-/** Section heading block: spec label, rule, title. Used across the page. */
+/**
+ * Section heading. The small label above the title and the rule under it
+ * are switched from content/site.ts (`weergave.sectieLabels`); with them
+ * off the title carries the section on its own.
+ */
 export function SectionHeading({
   label,
   title,
@@ -158,8 +163,12 @@ export function SectionHeading({
 }) {
   return (
     <header className="max-w-3xl">
-      <p className="spec-label text-accent">{label}</p>
-      <div className="mt-3 mb-5 h-px w-full bg-line" />
+      {weergave.sectieLabels && (
+        <>
+          <p className="spec-label text-accent">{label}</p>
+          <div className="mt-3 mb-5 h-px w-full bg-line" />
+        </>
+      )}
       <h2 id={id} className="text-4xl sm:text-5xl lg:text-6xl">
         {title}
       </h2>

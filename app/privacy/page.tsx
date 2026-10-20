@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { privacy } from "@/content/site";
+import { privacy, weergave } from "@/content/site";
 
 export const metadata: Metadata = {
   title: privacy.titel,
@@ -16,8 +16,12 @@ export default function PrivacyPage() {
     <>
       <Header />
       <main className="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:py-20">
-        <p className="spec-label text-accent">AVG</p>
-        <div className="mt-3 mb-5 h-px w-full bg-line" />
+        {weergave.sectieLabels && (
+          <>
+            <p className="spec-label text-accent">AVG</p>
+            <div className="mt-3 mb-5 h-px w-full bg-line" />
+          </>
+        )}
         <h1 className="text-4xl sm:text-5xl">{privacy.titel}</h1>
         <p className="tabular mt-3 text-sm text-muted">{privacy.laatstBijgewerkt}</p>
 

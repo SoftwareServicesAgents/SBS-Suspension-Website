@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { HeadlineReveal, TravelRule } from "@/components/motion";
 import { Button, ButtonLink, CompressCta } from "@/components/ui";
-import { banner, contact, hero } from "@/content/site";
+import { banner, contact, hero, weergave } from "@/content/site";
 
 function scrollToTool() {
   const el = document.getElementById("vering-check");
@@ -44,8 +44,8 @@ export function Hero() {
 
       <div className="relative mx-auto grid max-w-6xl gap-10 px-4 pt-12 pb-14 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-14 lg:pt-20 lg:pb-24">
         <div>
-          <p className="spec-label text-accent">{hero.label}</p>
-          <TravelRule className="mt-3 mb-6" />
+          {weergave.sectieLabels && <p className="spec-label text-accent">{hero.label}</p>}
+          <TravelRule className={weergave.sectieLabels ? "mt-3 mb-6" : "mb-6"} />
 
           <HeadlineReveal
             text={hero.titel}
@@ -97,14 +97,16 @@ export function Hero() {
             />
           </div>
           {/* Spec-sheet caption, in the technical register of the design. */}
-          <p className="spec-label mt-3 text-right">
-            {hero.fotoBijschrift.map((part, i) => (
-              <span key={part}>
-                {i > 0 && <span className="px-1.5 text-accent">/</span>}
-                {part}
-              </span>
-            ))}
-          </p>
+          {weergave.fotoBijschriften && (
+            <p className="spec-label mt-3 text-right">
+              {hero.fotoBijschrift.map((part, i) => (
+                <span key={part}>
+                  {i > 0 && <span className="px-1.5 text-accent">/</span>}
+                  {part}
+                </span>
+              ))}
+            </p>
+          )}
         </div>
       </div>
     </section>

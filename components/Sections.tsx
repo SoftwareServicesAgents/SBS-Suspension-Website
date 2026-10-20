@@ -7,6 +7,7 @@ import {
   diensten,
   openingstijden,
   overDavy,
+  weergave,
   werkplaats,
   werkwijze,
 } from "@/content/site";
@@ -48,12 +49,14 @@ export function Diensten() {
           ))}
         </ul>
 
-        <Reveal>
-          <p className="spec-label mt-12 text-accent">{diensten.disciplinesLabel}</p>
-          <div className="mt-4 h-px w-full bg-line" />
-        </Reveal>
+        {weergave.sectieLabels && (
+          <Reveal>
+            <p className="spec-label mt-12 text-accent">{diensten.disciplinesLabel}</p>
+            <div className="mt-4 h-px w-full bg-line" />
+          </Reveal>
+        )}
 
-        <ul className="mt-8 grid gap-6 sm:grid-cols-3">
+        <ul className={`grid gap-6 sm:grid-cols-3 ${weergave.sectieLabels ? "mt-8" : "mt-14"}`}>
           {diensten.disciplines.map((d, i) => (
             <Reveal as="li" key={d.titel} delay={i * 0.05}>
               <article className="h-full rounded-sm border border-line bg-ink-raised">

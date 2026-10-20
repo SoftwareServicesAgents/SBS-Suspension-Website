@@ -105,10 +105,10 @@ export const LABELS = {
   categorie: { mx: "MX / Enduro", supermoto: "Supermoto", road: "Wegmotor" },
   niveau: { recreatief: "Recreatief", clubwedstrijd: "Clubwedstrijd", nationaal: "Nationaal" },
   uren: {
-    lt20: "< 20 uur / 5.000 km",
-    "20-50": "20 – 50 uur / 5.000 – 15.000 km",
-    "50-100": "50 – 100 uur / 15.000 – 30.000 km",
-    gt100: "> 100 uur / 30.000 km",
+    lt20: "Minder dan 20 uur / 5.000 km",
+    "20-50": "20 tot 50 uur / 5.000 tot 15.000 km",
+    "50-100": "50 tot 100 uur / 15.000 tot 30.000 km",
+    gt100: "Meer dan 100 uur / 30.000 km",
     onbekend: "Geen idee",
   },
   doel: {

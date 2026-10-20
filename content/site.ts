@@ -22,6 +22,21 @@
 // =====================================================================
 
 // ---------------------------------------------------------------------
+// Weergave: kleine aan/uit-knoppen voor de rustige look.
+//
+// sectieLabels      = de kleine woordjes bóven een kop, zoals DIENSTEN
+//                     of WERKWIJZE, met het streepje eronder.
+// fotoBijschriften  = de kleine regeltjes onder een foto.
+//
+// Staan nu allebei uit. Wil je ze terugzien? Zet op true.
+// De teksten zelf blijven gewoon hieronder staan.
+// ---------------------------------------------------------------------
+export const weergave = {
+  sectieLabels: false,
+  fotoBijschriften: false,
+};
+
+// ---------------------------------------------------------------------
 // Bedrijfsnaam en korte omschrijving (gebruikt in de kop en de footer)
 // ---------------------------------------------------------------------
 export const bedrijf = {
@@ -71,17 +86,17 @@ export const contact = {
 export const openingstijden = {
   titel: "Openingstijden",
   dagen: [
-    { dag: "Maandag", tijd: "13.00 – 17.00 uur" },
-    { dag: "Dinsdag", tijd: "13.00 – 17.00 uur en op afspraak vanaf 19.00 uur" },
-    { dag: "Woensdag", tijd: "13.00 – 17.00 uur" },
-    { dag: "Donderdag", tijd: "13.00 – 17.00 uur en op afspraak vanaf 19.00 uur" },
-    { dag: "Vrijdag", tijd: "13.00 – 17.00 uur" },
+    { dag: "Maandag", tijd: "13.00 tot 17.00 uur" },
+    { dag: "Dinsdag", tijd: "13.00 tot 17.00 uur en op afspraak vanaf 19.00 uur" },
+    { dag: "Woensdag", tijd: "13.00 tot 17.00 uur" },
+    { dag: "Donderdag", tijd: "13.00 tot 17.00 uur en op afspraak vanaf 19.00 uur" },
+    { dag: "Vrijdag", tijd: "13.00 tot 17.00 uur" },
     { dag: "Zaterdag", tijd: "Ochtend, alleen op afspraak" },
     { dag: "Zondag", tijd: "Gesloten" },
   ],
   // Belangrijke opmerking onder de openingstijden
   noot:
-    "Kom je langs? Bel dan eerst even voor een afspraak. Dan weet je zeker dat Davy er is — hij staat regelmatig met de servicebus op een circuit — en reserveren we genoeg tijd voor je vragen.",
+    "Kom je langs? Bel dan eerst even voor een afspraak. Dan weet je zeker dat Davy er is, want hij staat regelmatig met de servicebus op een circuit, en reserveren we genoeg tijd voor je vragen.",
 };
 
 // ---------------------------------------------------------------------
@@ -180,7 +195,7 @@ export const veringCheck = {
     nietGevondenKnop: "Vul hem zelf in",
     handmatigTitel: "Vul je motor zelf in",
     handmatigHulp:
-      "Geen probleem — Davy zoekt de juiste gegevens er zelf bij en neemt dat mee in je advies.",
+      "Geen probleem. Davy zoekt de juiste gegevens er zelf bij en neemt dat mee in je advies.",
     handmatigMerk: "Merk",
     handmatigModel: "Model",
     handmatigBouwjaar: "Bouwjaar",
@@ -235,8 +250,8 @@ export const veringCheck = {
     urenHulp: "Weet je het niet precies? Kies wat er het dichtst bij komt.",
     urenOpties: [
       { id: "lt20", label: "Minder dan 20 uur / 5.000 km" },
-      { id: "20-50", label: "20 – 50 uur / 5.000 – 15.000 km" },
-      { id: "50-100", label: "50 – 100 uur / 15.000 – 30.000 km" },
+      { id: "20-50", label: "20 tot 50 uur / 5.000 tot 15.000 km" },
+      { id: "50-100", label: "50 tot 100 uur / 15.000 tot 30.000 km" },
       { id: "gt100", label: "Meer dan 100 uur / 30.000 km" },
       { id: "onbekend", label: "Geen idee" },
     ],
@@ -295,7 +310,7 @@ export const veringCheck = {
 
   // --- Stap 6: bevestiging ---
   stapKlaar: {
-    titel: "Gelukt — je aanvraag staat klaar",
+    titel: "Je aanvraag staat klaar",
     // [IN TE VULLEN] Hoe snel neemt Davy contact op? Vul het echte
     // aantal werkdagen in, bijvoorbeeld: "binnen 2 werkdagen".
     reactietijd: "[BINNEN X WERKDAGEN]",
@@ -325,7 +340,7 @@ export const veringCheck = {
 
   // Meldingen onderin beeld
   toastDemo: "Demo-modus: lead opgeslagen",
-  toastVerstuurd: "Verstuurd — Davy heeft je aanvraag ontvangen",
+  toastVerstuurd: "Verstuurd. Davy heeft je aanvraag ontvangen",
 };
 
 // ---------------------------------------------------------------------
@@ -335,7 +350,7 @@ export const diensten = {
   label: "Diensten",
   titel: "Wat we voor je vering doen",
   intro:
-    "We hebben geen eigen merk vering. We werken met merken waar we zelf achter staan — WP, Öhlins, KYB, Showa, Reiger, Hyperpro en Hagon — en kiezen per rijder wat past. Nieuwe veerelementen verkopen we niet.",
+    "We hebben geen eigen merk vering. We werken met merken waar we zelf achter staan: WP, Öhlins, KYB, Showa, Reiger, Hyperpro en Hagon. Per rijder kiezen we wat past. Nieuwe veerelementen verkopen we niet.",
 
   items: [
     {
@@ -437,7 +452,7 @@ export const overDavy = {
   alineas: [
     "SBS Suspension is gestart in 2005. Davy werkt sinds 1994 in het aanpassen en reviseren van voorvorken en schokdempers en begon in 2005 voor zichzelf. Inmiddels is er een vaste klantenkring die jaarlijks terugkomt voor onderhoud, afstelling of vernieuwing.",
     "Doordat Davy zelf 25 jaar actief heeft gecrosst, komt die ervaring rechtstreeks terug in het advies aan crossers. Ook het aanpassen en reviseren van wegmotoren is altijd onderdeel van het werk geweest.",
-    "In de loop der jaren zijn er dempers en schokbrekers van vrijwel elk merk door de werkplaats gegaan: WP, Öhlins, Kayaba, Showa en meer. Daardoor is het advies vaak merk- of typegebonden — en verschilt het per rijder. Elke rijder heeft eigen wensen, en die nemen we mee.",
+    "In de loop der jaren zijn er dempers en schokbrekers van vrijwel elk merk door de werkplaats gegaan: WP, Öhlins, Kayaba, Showa en meer. Daardoor is het advies vaak gebonden aan merk of type, en verschilt het per rijder. Elke rijder heeft eigen wensen, en die nemen we mee.",
     "Elke motor is weer een uitdaging om de klant goed te adviseren en het 100% naar wens in orde te maken.",
   ],
   foto: "/foto/davy-werkplaats.jpg",
@@ -460,7 +475,7 @@ export const werkplaats = {
     {
       titel: "Onze werkplaats",
       tekst:
-        "In de werkplaats is je motor op de juiste plek voor alle werkzaamheden en onderhoud. We besteden grote zorg en aandacht aan je voorvorken en schokdempers — het gaat tenslotte om kwaliteit. De werkplaats is elke middag open van 13.00 tot 17.00 uur; 's avonds en op zaterdag op afspraak.",
+        "In de werkplaats is je motor op de juiste plek voor alle werkzaamheden en onderhoud. We besteden grote zorg en aandacht aan je voorvorken en schokdempers. Het gaat tenslotte om kwaliteit. De werkplaats is elke middag open van 13.00 tot 17.00 uur; 's avonds en op zaterdag op afspraak.",
       foto: "/foto/wegmotor-bank.jpg",
       fotoAlt: "Wegmotor op de brug in de werkplaats van SBS Suspension",
     },
