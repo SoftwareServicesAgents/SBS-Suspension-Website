@@ -325,29 +325,31 @@ export function VeringCheck() {
     // flow and the /leads dashboard work with no accounts and no network.
     saveLead(lead);
 
-    // The API route only does something when Resend is configured. It must
-    // never be able to block or break the demo, so it is time-boxed and
-    // every failure falls back to demo mode.
-    let mode: "demo" | "email" = "demo";
+    // The lead is safe at this point, so the rider is never made to wait on
+    // the network. Confirm immediately — a cold serverless function would
+    // otherwise leave the button sitting on "Versturen..." for seconds.
+    setSavedLead(lead);
+    setSubmitting(false);
+    setToast(t.toastDemo);
+    setStep(5);
+
+    // The API route only does something when Resend is configured. It runs in
+    // the background and can only ever upgrade the message, never block or
+    // break the flow.
     try {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(lead),
-        signal: AbortSignal.timeout(4000),
+        signal: AbortSignal.timeout(8000),
       });
       if (res.ok) {
         const json = (await res.json()) as { mode?: "demo" | "email" };
-        if (json.mode === "email") mode = "email";
+        if (json.mode === "email") setToast(t.toastVerstuurd);
       }
     } catch {
-      /* offline or route unavailable — demo mode stands */
+      /* offline or route unavailable — the demo confirmation already stands */
     }
-
-    setSavedLead(lead);
-    setSubmitting(false);
-    setToast(mode === "email" ? t.toastVerstuurd : t.toastDemo);
-    setStep(5);
   }
 
   const motionProps = reduce
